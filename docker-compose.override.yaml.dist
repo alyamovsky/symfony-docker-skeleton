@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  nginx:
+    container_name: sf5_app-nginx
+    restart: always
+    build:
+      context: ./docker/dev
+      dockerfile: nginx.docker
+    volumes:
+      - ./app:/app
+    depends_on:
+      - php-fpm
+    ports:
+      - "47083:80"
+    networks:
+      - internal
+  php-fpm:
+    container_name: sf5_app-php-fpm
+    restart: always
+    build:
+      context: ./docker/dev
+      dockerfile: php-fpm.docker
+    volumes:
+      - ./app:/app
+      - sessions:/var/www/sessions
+    depends_on:
+      - postgres
+    environment:
+      XDEBUG_CONFIG: "remote_host=192.168.214.1 remote_port=9009 remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+    networks:
+      - internal
+  php-cli:
+    container_name: sf5_app-php-cli
+    restart: always
+    build:
+      context: ./docker/dev
+      dockerfile: php-cli.docker
+    volumes:
+      - ./app:/app
+      - composer:/root/.composer/cache
+      - ./app/var/data/.composer/auth.json:/root/.composer/auth.json
+      - $SSH_AUTH_SOCK:/ssh-agent # Forward local machine SSH key to docker
+    depends_on:
+      - postgres
+    tty: true
+    environment:
+      XDEBUG_CONFIG: "remote_host=192.168.214.1 remote_port=9009 remote_enable=1"
+      PHP_IDE_CONFIG: "serverName=Docker"
+      SSH_AUTH_SOCK: /ssh-agent
+    networks:
+      - internal
+  postgres:
+    container_name: sf5_app-postgres
+    restart: always
+    image: postgres:13.2-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: app
+    ports:
+      - "47032:5432"
+    networks:
+      - internal
+
+volumes:
+  composer:
+  postgres:
+  sessions:
+
+networks:
+  # Xdebug config
+  internal:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.214.0/28 # xdebug.remote_host=192.168.214.1

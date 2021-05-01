@@ -1,1 +1,8 @@
+###> IDE ###
 .idea/*
+###< IDE ###
+
+###> Docker ###
+docker-compose.override.yaml
+/.env
+###< Docker ###

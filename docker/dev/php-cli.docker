@@ -1,0 +1,25 @@
+FROM php:8.0-cli
+
+RUN apt-get update --fix-missing \
+    && apt-get install -y zsh \
+    git \
+    libpq-dev \
+    vim
+
+RUN pecl install xdebug && \
+    docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
+    docker-php-ext-install -j$(nproc) pdo_pgsql && \
+    docker-php-ext-enable xdebug
+
+COPY ./php-cli/default.ini /usr/local/etc/php/conf.d/default.ini
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
+# Zsh is the default shell
+RUN curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | zsh || true
+COPY ./php-cli/.zshrc /root/.zshrc
+RUN chsh -s /bin/zsh
+
+WORKDIR /app

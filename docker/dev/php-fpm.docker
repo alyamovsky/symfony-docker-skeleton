@@ -1,0 +1,17 @@
+FROM php:8.0-fpm
+
+# Sessions are stored on disk by default so let's create a sessions dir
+RUN mkdir -p /var/www/sessions && chown -R www-data:www-data /var/www/sessions && \
+    apt-get update --fix-missing && \
+    apt-get install -y libpq-dev
+
+RUN pecl install xdebug && \
+    docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
+    docker-php-ext-install -j$(nproc) pdo_pgsql && \
+    docker-php-ext-enable xdebug
+
+COPY ./php-fpm/default.ini /usr/local/etc/php/conf.d/default.ini
+
+RUN echo 'php_admin_flag[display_errors] = on' >> /usr/local/etc/php-fpm.d/www.conf
+
+WORKDIR /app
