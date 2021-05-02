@@ -4,7 +4,8 @@ RUN apt-get update --fix-missing \
     && apt-get install -y zsh \
     git \
     libpq-dev \
-    vim
+    vim \
+    zip
 
 RUN pecl install xdebug && \
     docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql && \
