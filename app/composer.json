@@ -1,10 +1,12 @@
 {
+    "name": "ddlzz/sf5-docker-skeleton",
+    "description": "",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": "^8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "composer/package-versions-deprecated": "1.11.99.1",
@@ -43,6 +45,7 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
         "symfony/debug-bundle": "^5.2",
