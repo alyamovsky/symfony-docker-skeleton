@@ -49,6 +49,7 @@ permissions-fix:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "chmod -R u+rwX,g+w,go+rX,o-w .; [ -d ./var/log ] && chmod -R 777 ./var/log; [ -d ./var/cache ] && chmod -R 777 ./var/cache; chmod -R o+rX ./public"
 
 configs-setup:
+	rm -r ./vendor composer.json composer.lock # remove template root composer files, not the ./app ones
 	[ -f docker-compose.override.yaml ] && echo "Skip docker-compose.override.yaml" || cp docker-compose.override.yaml.dist docker-compose.override.yaml
 	[ -f ./app/.env.local ] && echo "Skip .env.local" || cp ./app/.env ./app/.env.local
 	[ -f ./.env ] && echo "Skip docker .env" || cp ./.env.dist ./.env
