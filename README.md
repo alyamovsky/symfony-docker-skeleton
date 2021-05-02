@@ -14,7 +14,7 @@ A project template in the following configuration:
 3. `make up`
 4. Default ports are random (47001-47999) for every created project, so click the link generated in CLI your browser and enjoy!
 
-You also can set desired ports for Nginx and PostgreSQL in created ./.env file (don't forget to run `make restart` afterwards).
+You also can set desired ports for Nginx and PostgreSQL manually in generated /.env file (don't forget to run `make restart` afterwards).
 
 # Useful makefile commands
 
