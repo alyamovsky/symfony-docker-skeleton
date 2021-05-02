@@ -1,13 +1,17 @@
 ###> symfony/framework-bundle ###
-app/.env.local
-app/.env.local.php
-app/.env.*.local
-app/public/bundles/
-app/var/
-app/vendor/
+/app/.env.local
+/app/.env.local.php
+/app/.env.*.local
+/app/public/bundles/
+/app/var/
+/app/vendor/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
-app/bin/.phpunit
-app/phpunit.xml
+/app/bin/.phpunit
+/app/phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+###> Docker build artefacts ###
+/.env
+###> Docker build artefacts ###
