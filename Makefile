@@ -1,6 +1,10 @@
-ifndef DOCKER_PROJECT_NAME
-override DOCKER_PROJECT_NAME = sf5_app # override this in CI or manually
+ifneq (,$(wildcard ./.env))
+    include .env
+    export
 endif
+
+# Run this command first
+init: configs-setup composer-install db-create db-migrations permissions-fix
 
 up: docker-up
 down: docker-down
@@ -9,42 +13,40 @@ rebuild: down docker-build
 reset: rebuild up
 
 docker-up:
-	docker-compose -p $(DOCKER_PROJECT_NAME) up -d
+	docker-compose -p $(DOCKER_PROJECT_TITLE) up -d
 
 docker-down:
-	docker-compose -p $(DOCKER_PROJECT_NAME) down --remove-orphans
+	docker-compose -p $(DOCKER_PROJECT_TITLE) down --remove-orphans
 
 docker-down-clear:
-	docker-compose -p $(DOCKER_PROJECT_NAME) down -v --remove-orphans
+	docker-compose -p $(DOCKER_PROJECT_TITLE) down -v --remove-orphans
 
 docker-pull:
-	docker-compose -p $(DOCKER_PROJECT_NAME) pull
+	docker-compose -p $(DOCKER_PROJECT_TITLE) pull
 
 docker-build:
-	docker-compose -p $(DOCKER_PROJECT_NAME) build
-
-init: configs-setup composer-install db-create db-migrations permissions-fix
+	docker-compose -p $(DOCKER_PROJECT_TITLE) build
 
 test:
-	docker-compose -p $(DOCKER_PROJECT_NAME) run --rm php-cli php /app/bin/phpunit
+	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli php /app/bin/phpunit
 
 composer-install:
-	docker-compose -p $(DOCKER_PROJECT_NAME) run --rm php-cli sh -c "umask 002 && composer install --no-interaction"
+	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "umask 002 && composer install --no-interaction"
 
 console:
-	docker-compose -p $(DOCKER_PROJECT_NAME) run --rm php-cli zsh
+	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli zsh
 
 cs:
-	docker-compose -p $(DOCKER_PROJECT_NAME) run --rm php-cli sh -c "php /app/vendor/bin/php-cs-fixer -v --config=/app/.php_cs.dist fix /app/src/* /app/tests/*"
+	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/vendor/bin/php-cs-fixer -v --config=/app/.php_cs.dist fix /app/src/* /app/tests/*"
 
 db-create:
-	docker-compose -p $(DOCKER_PROJECT_NAME) run --rm php-cli sh -c "php /app/bin/console doctrine:database:create --if-not-exists"
+	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/bin/console doctrine:database:create --if-not-exists"
 
 db-migrations:
-	docker-compose -p $(DOCKER_PROJECT_NAME) run --rm php-cli sh -c "php /app/bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration"
+	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration"
 
 permissions-fix:
-	docker-compose -p $(DOCKER_PROJECT_NAME) run --rm php-cli sh -c "chmod -R u+rwX,g+w,go+rX,o-w .; [ -d ./var/log ] && chmod -R 777 ./var/log; [ -d ./var/cache ] && chmod -R 777 ./var/cache; chmod -R o+rX ./public"
+	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "chmod -R u+rwX,g+w,go+rX,o-w .; [ -d ./var/log ] && chmod -R 777 ./var/log; [ -d ./var/cache ] && chmod -R 777 ./var/cache; chmod -R o+rX ./public"
 
 configs-setup:
 	[ -f docker-compose.override.yaml ] && echo "Skip docker-compose.override.yaml" || cp docker-compose.override.yaml.dist docker-compose.override.yaml
