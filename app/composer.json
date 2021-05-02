@@ -1,6 +1,6 @@
 {
-    "name": "ddlzz/sf5-docker-skeleton",
-    "description": "",
+    "name": "author/project",
+    "description": "Your description goes here.",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
