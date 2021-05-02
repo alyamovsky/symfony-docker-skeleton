@@ -5,6 +5,7 @@ RUN apt-get update --fix-missing \
     git \
     libpq-dev \
     vim \
+    sed \
     zip
 
 RUN pecl install xdebug && \

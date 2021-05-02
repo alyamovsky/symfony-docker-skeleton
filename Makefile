@@ -14,6 +14,7 @@ reset: rebuild up
 
 docker-up:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) up -d
+	@echo ***Success! Your app is ready and available at http://localhost:$(DOCKER_NGINX_PORT) and you can connect PostgreSQL from your host machine on port $(DOCKER_POSTGRESQL_PORT).***
 
 docker-down:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) down --remove-orphans
@@ -52,9 +53,10 @@ permissions-fix:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "chmod -R u+rwX,g+w,go+rX,o-w .; [ -d ./var/log ] && chmod -R 777 ./var/log; [ -d ./var/cache ] && chmod -R 777 ./var/cache; chmod -R o+rX ./public"
 
 configs-setup:
-	rm -r ./vendor composer.json composer.lock # remove template root composer files, not the ./app ones
+	rm -r ./vendor composer.json composer.lock || true # Remove template root composer files, keep only the ./app ones
 	[ -f docker-compose.override.yaml ] && echo "Skip docker-compose.override.yaml" || cp docker-compose.override.yaml.dist docker-compose.override.yaml
 	[ -f ./app/.env.local ] && echo "Skip .env.local" || cp ./app/.env ./app/.env.local
+	./build_scripts/override_default_docker_env_vars.sh # Set random project title and host ports for Nginx/PostgreSQL
 	[ -f ./.env ] && echo "Skip docker .env" || cp ./.env.dist ./.env
 	[ -f ./app/phpunit.xml ] && echo "Skip phpunit.xml" || cp ./app/phpunit.xml.dist ./app/phpunit.xml
 	[ -d ./.git/hooks ] && echo "./.git/hooks exists" || mkdir -p .git/hooks

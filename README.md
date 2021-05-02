@@ -12,12 +12,14 @@ A project template in the following configuration:
 1. `composer create-project ddlzz/symfony5-docker-website-skeleton local_project_path`
 2. `make init`
 3. `make up`
-4. Type `https://localhost:47083` in your browser and enjoy!
+4. Default ports are random (47001-47999) for every created project, so click the link generated in CLI your browser and enjoy!
+
+You also can set desired ports for Nginx and PostgreSQL in created ./.env file (don't forget to run `make restart` afterwards).
 
 # Useful makefile commands
 
 1. `make console` - default shell is zsh with preinstalled set of [plugins](https://github.com/ddlzz/symfony5-docker-website-skeleton/blob/main/docker/dev/php-cli/.zshrc)
-2. `make test`
-3. `make cs` - 
-4. `make psalm` - Psalm default severity level is 1
+2. `make test` - PHPUnit tests
+3. `make cs` - PHP CS-fixer with predefined [rule sets](https://github.com/ddlzz/symfony5-docker-website-skeleton/blob/main/app/.php_cs.dist) 
+4. `make psalm` - Psalm (default level is 1)
 
