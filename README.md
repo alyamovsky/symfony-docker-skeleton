@@ -12,7 +12,7 @@ A project template in the following configuration:
 1. `composer create-project ddlzz/symfony5-docker-website-skeleton local_project_path`
 2. `make init`
 3. `make up`
-4. Default ports are random (47001-47999) for every created project, so click the link generated in CLI your browser and enjoy!
+4. Default ports are random (47001-47999) for every created project, so click the link generated in CLI with the output of `make up` command and enjoy!
 
 You also can set desired ports for Nginx and PostgreSQL manually in generated /.env file (don't forget to run `make restart` afterwards).
 
