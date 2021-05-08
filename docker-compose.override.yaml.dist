@@ -27,7 +27,7 @@ services:
     depends_on:
       - postgres
     environment:
-      XDEBUG_CONFIG: "remote_host=192.168.214.1 remote_port=9009 remote_enable=1"
+      XDEBUG_CONFIG: "remote_host=${DOCKER_LOCAL_NETWORK_IP} remote_port=9009 remote_enable=1"
       PHP_IDE_CONFIG: "serverName=Docker"
     networks:
       - internal
@@ -45,9 +45,8 @@ services:
       - postgres
     tty: true
     environment:
-      XDEBUG_CONFIG: "remote_host=192.168.214.1 remote_port=9009 remote_enable=1"
+      XDEBUG_CONFIG: "remote_host=${DOCKER_LOCAL_NETWORK_IP} remote_port=9009 remote_enable=1"
       PHP_IDE_CONFIG: "serverName=Docker"
-      SSH_AUTH_SOCK: /ssh-agent
     networks:
       - internal
   postgres:
@@ -77,4 +76,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.214.0/28 # xdebug.remote_host=192.168.214.1
+        - subnet: "${DOCKER_LOCAL_NETWORK_IP}/28" # xdebug.remote_host=192.168...
