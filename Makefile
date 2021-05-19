@@ -53,7 +53,7 @@ permissions-fix:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "chmod -R u+rwX,g+w,go+rX,o-w .; [ -d ./var/log ] && chmod -R 777 ./var/log; [ -d ./var/cache ] && chmod -R 777 ./var/cache; chmod -R o+rX ./public"
 
 configs-setup:
-	rm -r ./vendor composer.json composer.lock || true # Remove template root composer files, keep only the ./app ones
+	rm -r ./vendor composer.json composer.lock RUN_MAKE_INIT_COMMAND_PLEASE.md || true # Remove template root composer files, keep only the ./app ones
 	[ -f docker-compose.override.yaml ] && echo "Skip docker-compose.override.yaml" || cp docker-compose.override.yaml.dist docker-compose.override.yaml
 	[ -f ./app/.env.local ] && echo "Skip .env.local" || cp ./app/.env ./app/.env.local
 	./build_scripts/override_default_docker_env_vars.sh # Set random project title and host ports for Nginx/PostgreSQL

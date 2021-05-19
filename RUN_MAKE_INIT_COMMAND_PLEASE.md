@@ -1,0 +1,1 @@
+Please run `make init` before committing or pushing to your remote repo.
