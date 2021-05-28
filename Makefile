@@ -60,9 +60,9 @@ configs-setup:
 	rm -r ./build_scripts || true
 	[ -f ./.env ] && echo "Skip docker .env" || cp ./.env.dist ./.env
 	[ -f ./app/phpunit.xml ] && echo "Skip phpunit.xml" || cp ./app/phpunit.xml.dist ./app/phpunit.xml
-	[ -d ./.git/hooks ] && echo "./.git/hooks exists" || mkdir -p .git/hooks
 	[ -d ./app/var/data/.composer ] && echo "./var/data/.composer exists" || mkdir -p ./app/var/data/.composer
 	[ -f ./app/var/data/.composer/auth.json ] && echo "Skip ./var/data/.composer/auth.json" || echo '{}' > ./app/var/data/.composer/auth.json
 
 prepare-commit-msg:
+	[ -d ./.git/hooks ] && echo "./.git/hooks exists" || mkdir -p .git/hooks
 	[ -f .git/hooks/prepare-commit-msg ] && echo "Skip .hooks/prepare-commit-msg" || cp docker/dev/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg
