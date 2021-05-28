@@ -56,7 +56,8 @@ configs-setup:
 	rm -r ./vendor composer.json composer.lock RUN_MAKE_INIT_COMMAND_PLEASE.md || true # Remove template root composer files, keep only the ./app ones
 	[ -f docker-compose.override.yaml ] && echo "Skip docker-compose.override.yaml" || cp docker-compose.override.yaml.dist docker-compose.override.yaml
 	[ -f ./app/.env.local ] && echo "Skip .env.local" || cp ./app/.env ./app/.env.local
-	./build_scripts/override_default_docker_env_vars.sh # Set random project title and host ports for Nginx/PostgreSQL
+	./build_scripts/override_default_docker_env_vars.sh || true # Set random project title and host ports for Nginx/PostgreSQL
+	rm -r ./build_scripts || true
 	[ -f ./.env ] && echo "Skip docker .env" || cp ./.env.dist ./.env
 	[ -f ./app/phpunit.xml ] && echo "Skip phpunit.xml" || cp ./app/phpunit.xml.dist ./app/phpunit.xml
 	[ -d ./.git/hooks ] && echo "./.git/hooks exists" || mkdir -p .git/hooks
