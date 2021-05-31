@@ -12,7 +12,7 @@ A project template in the following configuration:
 # Quick Start
 
 1. `composer create-project ddlzz/symfony5-docker-website-skeleton local_project_path`
-2. `make init`
+2. `make init` - very important! Run it before making any commits to your repo. 
 3. `make up`
 4. Default ports are random (47001-47999) for every created project, so click the link generated in CLI with the output of `make up` command and enjoy!
 

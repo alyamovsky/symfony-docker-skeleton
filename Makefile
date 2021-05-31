@@ -53,15 +53,16 @@ permissions-fix:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "chmod -R u+rwX,g+w,go+rX,o-w .; [ -d ./var/log ] && chmod -R 777 ./var/log; [ -d ./var/cache ] && chmod -R 777 ./var/cache; chmod -R o+rX ./public"
 
 configs-setup:
-	rm -r ./vendor composer.json composer.lock || true # Remove template root composer files, keep only the ./app ones
+	rm -r ./vendor composer.json composer.lock RUN_MAKE_INIT_COMMAND_PLEASE.md || true # Remove template root composer files, keep only the ./app ones
 	[ -f docker-compose.override.yaml ] && echo "Skip docker-compose.override.yaml" || cp docker-compose.override.yaml.dist docker-compose.override.yaml
 	[ -f ./app/.env.local ] && echo "Skip .env.local" || cp ./app/.env ./app/.env.local
-	./build_scripts/override_default_docker_env_vars.sh # Set random project title and host ports for Nginx/PostgreSQL
+	./build_scripts/override_default_docker_env_vars.sh || true # Set random project title and host ports for Nginx/PostgreSQL
+	rm -r ./build_scripts || true
 	[ -f ./.env ] && echo "Skip docker .env" || cp ./.env.dist ./.env
 	[ -f ./app/phpunit.xml ] && echo "Skip phpunit.xml" || cp ./app/phpunit.xml.dist ./app/phpunit.xml
-	[ -d ./.git/hooks ] && echo "./.git/hooks exists" || mkdir -p .git/hooks
 	[ -d ./app/var/data/.composer ] && echo "./var/data/.composer exists" || mkdir -p ./app/var/data/.composer
 	[ -f ./app/var/data/.composer/auth.json ] && echo "Skip ./var/data/.composer/auth.json" || echo '{}' > ./app/var/data/.composer/auth.json
 
 prepare-commit-msg:
+	[ -d ./.git/hooks ] && echo "./.git/hooks exists" || mkdir -p .git/hooks
 	[ -f .git/hooks/prepare-commit-msg ] && echo "Skip .hooks/prepare-commit-msg" || cp docker/dev/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg
