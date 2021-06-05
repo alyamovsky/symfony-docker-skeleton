@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/ddlzz/symfony5-docker-website-skeleton/version.svg)](https://packagist.org/packages/ddlzz/symfony5-docker-website-skeleton)
 
 A project template in the following configuration:
-1. Symfony 5.2
+1. Symfony 5.3
 2. PHP8
 3. PostgreSQL 13.2
 4. Separate Docker containers for Nginx, FPM, CLI and a database
