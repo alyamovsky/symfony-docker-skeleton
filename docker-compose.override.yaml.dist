@@ -52,7 +52,7 @@ services:
   postgres:
     container_name: ${DOCKER_PROJECT_TITLE}-postgres
     restart: always
-    image: postgres:13.2-alpine
+    image: postgres:14.3-alpine
     volumes:
       - postgres:/var/lib/postgresql/data
     environment:

@@ -1,17 +1,17 @@
-# Symfony5 w/ Docker config
+# Symfony w/ Docker config
 
-[![Latest Stable Version](https://poser.pugx.org/ddlzz/symfony5-docker-website-skeleton/version.svg)](https://packagist.org/packages/ddlzz/symfony5-docker-website-skeleton)
+[![Latest Stable Version](https://poser.pugx.org/ddlzz/symfony-docker-website-skeleton/version.svg)](https://packagist.org/packages/ddlzz/symfony-docker-website-skeleton)
 
 A project template in the following configuration:
-1. Symfony 5.3
-2. PHP8
-3. PostgreSQL 13.2
+1. Latest stable Symfony framework (6.0 at the moment)
+2. PHP 8.1
+3. PostgreSQL 14.3
 4. Separate Docker containers for Nginx, FPM, CLI and a database
 5. CS-Fixer and Psalm on board
 
 # Quick Start
 
-1. `composer create-project ddlzz/symfony5-docker-website-skeleton local_project_path`
+1. `composer create-project ddlzz/symfony-docker-website-skeleton local_project_path`
 2. `make init` - very important! Run it before making any commits to your repo. 
 3. `make up`
 4. Default ports are random (47001-47999) for every created project, so click the link generated in CLI with the output of `make up` command and enjoy!
@@ -29,8 +29,8 @@ To integrate Xdebug with PhpStorm within a created project you need to do the fo
 
 # Useful makefile commands
 
-1. `make console` - default shell is zsh with preinstalled set of [plugins](https://github.com/ddlzz/symfony5-docker-website-skeleton/blob/main/docker/dev/php-cli/.zshrc)
+1. `make console` - default shell is zsh with preinstalled set of [plugins](https://github.com/ddlzz/symfony-docker-website-skeleton/blob/main/docker/dev/php-cli/.zshrc)
 2. `make test` - PHPUnit tests
-3. `make cs` - PHP CS-fixer with predefined [rule sets](https://github.com/ddlzz/symfony5-docker-website-skeleton/blob/main/app/.php_cs.dist) 
+3. `make cs` - PHP CS-fixer with predefined [rule sets](https://github.com/ddlzz/symfony-docker-website-skeleton/blob/main/app/.php_cs.dist) 
 4. `make psalm` - Psalm (default level is 1)
 
