@@ -5,7 +5,7 @@
 A project template in the following configuration:
 1. Latest stable Symfony framework (6.0 at the moment)
 2. PHP 8.1
-3. PostgreSQL 14.3
+3. PostgreSQL 14.2
 4. Separate Docker containers for Nginx, FPM, CLI and a database
 5. CS-Fixer and Psalm on board
 
