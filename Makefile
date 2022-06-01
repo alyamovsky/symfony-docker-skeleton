@@ -41,7 +41,7 @@ cs:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/vendor/bin/php-cs-fixer -v --allow-risky=yes --config=/app/.php_cs.dist fix /app/src/* /app/tests/*"
 
 psalm:
-	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/vendor/bin/psalm*"
+	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/vendor/bin/psalm /app/src/*"
 
 db-create:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/bin/console doctrine:database:create --if-not-exists"
