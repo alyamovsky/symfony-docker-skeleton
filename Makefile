@@ -3,8 +3,8 @@ ifneq (,$(wildcard ./.env))
     export
 endif
 
-# Run this command first
-init: configs-setup composer-install db-create db-migrations permissions-fix
+# Run this command after `make configs-setup` to set up the project
+init: composer-install db-create db-migrations permissions-fix
 
 up: docker-up
 down: docker-down
