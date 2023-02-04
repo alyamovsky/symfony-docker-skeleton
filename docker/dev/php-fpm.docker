@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 # Sessions are stored on disk by default so let's create a sessions dir
 RUN mkdir -p /var/www/sessions && chown -R www-data:www-data /var/www/sessions && \

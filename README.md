@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/ddlzz/symfony-docker-website-skeleton/version.svg)](https://packagist.org/packages/ddlzz/symfony-docker-website-skeleton)
 
 A project template in the following configuration:
-1. Latest stable Symfony framework (6.0 at the moment)
+1. Latest stable Symfony framework (6.2 at the moment)
 2. PHP 8.1
 3. PostgreSQL 14.2
 4. Separate Docker containers for Nginx, FPM, CLI and a database
