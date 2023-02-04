@@ -3,12 +3,12 @@
   "type": "template",
   "description": "A project template for Symfony application running inside of Docker containers for convenient development.",
   "keywords": ["template"],
-  "homepage": "https://github.com/ddlzz/symfony-docker-website-skeleton",
+  "homepage": "https://github.com/alyamovsky/symfony-docker-website-skeleton",
   "license": "MIT",
   "authors": [
     {
       "name": "Andrew Alyamovksy",
-      "email": "ddlzz@yandex.ru",
+      "email": "andrew.alyamovsky@gmail.com",
       "homepage": "https://alyamovsky.com",
       "role": "Developer"
     }

@@ -9,6 +9,14 @@ A project template in the following configuration:
 4. Separate Docker containers for Nginx, FPM, CLI and a database
 5. CS-Fixer and Psalm on board
 
+# The concept
+
+1. The application and docker files are located on the same level: in the `/app` and `/docker` folders, respectively. 
+   This allows you to separate the symphony-application and docker environment variables, and to implement the mono 
+   repository pattern by adding new folders if necessary: `/centrifugo`, `s3-storage`, etc.
+2. The `docker-compose.override.yaml` is ignored by default, so you can add your own settings without worrying about 
+   overwriting the original ones.
+
 # Quick Start
 
 1. `composer create-project ddlzz/symfony-docker-website-skeleton local_project_path`
@@ -29,8 +37,8 @@ To integrate Xdebug with PhpStorm within a created project you need to do the fo
 
 # Useful makefile commands
 
-1. `make console` - default shell is zsh with preinstalled set of [plugins](https://github.com/ddlzz/symfony-docker-website-skeleton/blob/main/docker/dev/php-cli/.zshrc)
+1. `make console` - default shell is zsh with preinstalled set of [plugins](https://github.com/alyamovsky/symfony-docker-website-skeleton/blob/main/docker/dev/php-cli/.zshrc)
 2. `make test` - PHPUnit tests
-3. `make cs` - PHP CS-fixer with predefined [rule sets](https://github.com/ddlzz/symfony-docker-website-skeleton/blob/main/app/.php_cs.dist) 
+3. `make cs` - PHP CS-fixer with predefined [rule sets](https://github.com/alyamovsky/symfony-docker-website-skeleton/blob/main/app/.php_cs.dist) 
 4. `make psalm` - Psalm (default level is 1)
 
