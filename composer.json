@@ -1,5 +1,5 @@
 {
-  "name": "ddlzz/symfony-docker-website-skeleton",
+  "name": "alyamovsky/symfony-docker-website-skeleton",
   "type": "template",
   "description": "A project template for Symfony application running inside of Docker containers for convenient development.",
   "keywords": ["template"],

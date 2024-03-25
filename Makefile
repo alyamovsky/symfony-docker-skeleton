@@ -31,6 +31,9 @@ docker-build:
 test:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli php /app/bin/phpunit
 
+app-install:
+	./build-scripts/install-app.sh $(OPTIONS) || true # install the Symfony app
+
 composer-install:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "umask 002 && composer install --no-interaction"
 
@@ -57,7 +60,7 @@ configs-setup:
 	[ -f docker-compose.override.yaml ] && echo "Skip docker-compose.override.yaml" || cp docker-compose.override.yaml.dist docker-compose.override.yaml
 	[ -f ./app/.env.local ] && echo "Skip .env.local" || cp ./app/.env ./app/.env.local
 	./build-scripts/override-default-docker-env-vars.sh || true # Set random project title and host ports for Nginx/PostgreSQL
-	rm -r ./build-scripts || true
+	rm ./build-scripts/override-default-docker-env-vars.sh || true
 	[ -f ./.env ] && echo "Skip docker .env" || cp ./.env.dist ./.env
 	[ -f ./app/phpunit.xml ] && echo "Skip phpunit.xml" || cp ./app/phpunit.xml.dist ./app/phpunit.xml
 	[ -d ./app/var/data/.composer ] && echo "./var/data/.composer exists" || mkdir -p ./app/var/data/.composer
