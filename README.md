@@ -20,7 +20,7 @@ A project template in the following configuration:
 # Quick Start
 
 1. `composer create-project ddlzz/symfony-docker-website-skeleton local_project_path`
-2. `make configs-setup` - create .env files for docker containers
+2. `make setup-configs` - create .env files for docker containers
 3. `make init` - very important! Run it before making any commits to your repo. 
 4. `make up` - start docker containers 
 

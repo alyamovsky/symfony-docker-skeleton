@@ -3,7 +3,7 @@ ifneq (,$(wildcard ./.env))
     export
 endif
 
-# Run this command after `make configs-setup` to set up the project
+# Run this command after `make setup-configs` to set up the project
 init: composer-install db-create db-migrations permissions-fix
 
 up: docker-up
@@ -55,14 +55,14 @@ db-migrations:
 permissions-fix:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "chmod -R u+rwX,g+w,go+rX,o-w .; [ -d ./var/log ] && chmod -R 777 ./var/log; [ -d ./var/cache ] && chmod -R 777 ./var/cache; chmod -R o+rX ./public"
 
-configs-setup:
+setup-configs:
 	rm -r ./vendor composer.json composer.lock RUN_MAKE_INIT_COMMAND_PLEASE.md || true # Remove template root composer files, keep only the ./app ones
 	[ -f docker-compose.override.yaml ] && echo "Skip docker-compose.override.yaml" || cp docker-compose.override.yaml.dist docker-compose.override.yaml
-	[ -f ./app/.env.local ] && echo "Skip .env.local" || cp ./app/.env ./app/.env.local
 	./build-scripts/override-default-docker-env-vars.sh || true # Set random project title and host ports for Nginx/PostgreSQL
 	rm ./build-scripts/override-default-docker-env-vars.sh || true
 	[ -f ./.env ] && echo "Skip docker .env" || cp ./.env.dist ./.env
-	[ -f ./app/phpunit.xml ] && echo "Skip phpunit.xml" || cp ./app/phpunit.xml.dist ./app/phpunit.xml
+
+post-setup-configs:
 	[ -d ./app/var/data/.composer ] && echo "./var/data/.composer exists" || mkdir -p ./app/var/data/.composer
 	[ -f ./app/var/data/.composer/auth.json ] && echo "Skip ./var/data/.composer/auth.json" || echo '{}' > ./app/var/data/.composer/auth.json
 
