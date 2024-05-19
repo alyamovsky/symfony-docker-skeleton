@@ -1,11 +1,11 @@
 # Symfony w/ Docker config
 
-[![Latest Stable Version](https://poser.pugx.org/ddlzz/symfony-docker-website-skeleton/version.svg)](https://packagist.org/packages/ddlzz/symfony-docker-website-skeleton)
+[![Latest Stable Version](https://poser.pugx.org/alyamovsky/symfony-docker-skeleton/version.svg)](https://packagist.org/packages/alyamovsky/symfony-docker-skeleton)
 
 A project template in the following configuration:
-1. Latest stable Symfony framework (6.2 at the moment)
-2. PHP 8.2
-3. PostgreSQL 14.2 (can be altered in the docker-compose file)
+1. Latest stable Symfony framework (6.4 at the moment)
+2. PHP 8.3
+3. PostgreSQL 16.3 (can be altered in the docker compose file) ?
 4. Separate Docker containers for Nginx, FPM, CLI and a database
 5. CS-Fixer and Psalm on board
 
@@ -14,14 +14,15 @@ A project template in the following configuration:
 1. The application and docker files are located on the same level: in the `/app` and `/docker` folders, respectively. 
    This allows you to separate the symphony-application and docker environment variables, and to implement the mono 
    repository pattern by adding new folders if necessary: `/centrifugo`, `s3-storage`, etc.
-2. The `docker-compose.override.yaml` is ignored by default, so you can add your own settings without worrying about 
-   overwriting the original ones.
+2. The `compose.override.yaml` is ignored by default, so you can add your own settings without worrying about overwriting the original ones.
 
 # Quick Start
+One-liner to create a new project: `composer create-project ddlzz/symfony-docker-website-skeleton local_project_path && make setup-configs && make init OPTIONS="webapp" && make up`
 
+Split into steps:
 1. `composer create-project ddlzz/symfony-docker-website-skeleton local_project_path`
-2. `make configs-setup` - create .env files for docker containers
-3. `make init` - very important! Run it before making any commits to your repo. 
+2. `make setup-configs` - create .env files for docker containers
+3. `make init OPTIONS="webapp"` - very important! Run it before making any commits to your repo. You can omit the `OPTIONS` parameter if you don't need to use the webapp.
 4. `make up` - start docker containers 
 
 Default ports are random (47001-47999) for every created project, so click the link generated in CLI with the output of `make up` command and enjoy!
@@ -39,8 +40,7 @@ To integrate Xdebug with PhpStorm within a created project you need to do the fo
 
 # Useful makefile commands
 
-1. `make console` - default shell is zsh with preinstalled set of [plugins](https://github.com/alyamovsky/symfony-docker-website-skeleton/blob/main/docker/dev/php-cli/.zshrc)
+1. `make console` - default shell is zsh with preinstalled set of [plugins](https://github.com/alyamovsky/symfony-docker-website-skeleton/blob/main/docker/configs/dev/php-cli/.zshrc)
 2. `make test` - PHPUnit tests
 3. `make cs` - PHP CS-fixer with predefined [rule sets](https://github.com/alyamovsky/symfony-docker-website-skeleton/blob/main/app/.php_cs.dist) 
 4. `make psalm` - Psalm (default level is 1)
-
