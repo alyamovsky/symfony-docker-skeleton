@@ -1,6 +1,6 @@
 # Symfony w/ Docker config
 
-[![Latest Stable Version](https://poser.pugx.org/ddlzz/symfony-docker-website-skeleton/version.svg)](https://packagist.org/packages/ddlzz/symfony-docker-website-skeleton)
+[![Latest Stable Version](https://poser.pugx.org/alyamovsky/symfony-docker-skeleton/version.svg)](https://packagist.org/packages/alyamovsky/symfony-docker-skeleton)
 
 A project template in the following configuration:
 1. Latest stable Symfony framework (6.4 at the moment)

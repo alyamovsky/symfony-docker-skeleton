@@ -32,7 +32,7 @@ test:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli php /app/bin/phpunit
 
 app-install:
-	./build-scripts/install-app.sh $(OPTIONS) || true # install the Symfony app
+	./build-scripts/install-app.sh $(OPTIONS) || true # install the Symfony app itself
 
 composer-install:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "umask 002 && composer install --no-interaction"

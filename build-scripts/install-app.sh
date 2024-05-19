@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 COMPOSER_CMD_PREFIX="docker run --rm -u $(id -u):$(id -g) -v $(pwd):/app composer:lts"
 COMPOSER_CMD=$COMPOSER_CMD_PREFIX+" composer:lts"
 
