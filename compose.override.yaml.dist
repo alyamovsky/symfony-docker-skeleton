@@ -25,7 +25,8 @@ services:
       - ./app:/app
       - sessions:/var/www/sessions
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       XDEBUG_CONFIG: "remote_host=${DOCKER_LOCAL_NETWORK_IP} remote_port=9009 remote_enable=1"
       PHP_IDE_CONFIG: "serverName=Docker"
@@ -42,7 +43,8 @@ services:
       - composer:/root/.composer/cache
       - ./docker/data/.composer/auth.json:/root/.composer/auth.json
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     tty: true
     environment:
       XDEBUG_CONFIG: "remote_host=${DOCKER_LOCAL_NETWORK_IP} remote_port=9009 remote_enable=1"
@@ -63,6 +65,12 @@ services:
       - "${DOCKER_POSTGRESQL_PORT}:5432"
     networks:
       - internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s
+      timeout: 1s
+      retries: 10
+      start_period: 5s
 
 volumes:
   composer:
