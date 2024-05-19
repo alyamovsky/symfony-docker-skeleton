@@ -4,7 +4,7 @@ ifneq (,$(wildcard ./.env))
 endif
 
 # Run this command after `make setup-configs` to set up the project
-init: composer-install db-create db-migrations permissions-fix
+init: setup-configs app-install db-create db-migrations permissions-fix cleanup
 
 up: docker-up
 down: docker-down
@@ -19,6 +19,9 @@ docker-up:
 docker-down:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) down --remove-orphans
 
+docker-remove:
+	docker-compose -p $(DOCKER_PROJECT_TITLE) down --rmi all -v && docker network prune -f
+
 docker-down-clear:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) down -v --remove-orphans
 
@@ -32,10 +35,7 @@ test:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli php /app/bin/phpunit
 
 app-install:
-	./build-scripts/install-app.sh $(OPTIONS) || true # install the Symfony app itself
-
-composer-install:
-	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "umask 002 && composer install --no-interaction"
+	./build/scripts/install-app.sh $(OPTIONS) || true # install the Symfony app itself
 
 console:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli zsh
@@ -56,16 +56,14 @@ permissions-fix:
 	docker-compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "chmod -R u+rwX,g+w,go+rX,o-w .; [ -d ./var/log ] && chmod -R 777 ./var/log; [ -d ./var/cache ] && chmod -R 777 ./var/cache; chmod -R o+rX ./public"
 
 setup-configs:
-	rm -r ./vendor composer.json composer.lock RUN_MAKE_INIT_COMMAND_PLEASE.md || true # Remove template root composer files, keep only the ./app ones
 	[ -f docker-compose.override.yaml ] && echo "Skip docker-compose.override.yaml" || cp docker-compose.override.yaml.dist docker-compose.override.yaml
-	./build-scripts/override-default-docker-env-vars.sh || true # Set random project title and host ports for Nginx/PostgreSQL
-	rm ./build-scripts/override-default-docker-env-vars.sh || true
+	./build/scripts/override-default-docker-env-vars.sh || true # Set random project title and host ports for Nginx/PostgreSQL
 	[ -f ./.env ] && echo "Skip docker .env" || cp ./.env.dist ./.env
 
-post-setup-configs:
-	[ -d ./app/var/data/.composer ] && echo "./var/data/.composer exists" || mkdir -p ./app/var/data/.composer
-	[ -f ./app/var/data/.composer/auth.json ] && echo "Skip ./var/data/.composer/auth.json" || echo '{}' > ./app/var/data/.composer/auth.json
+cleanup:
+	rm -rf ./vendor composer.json composer.lock RUN_MAKE_INIT_COMMAND_PLEASE.md || true
+	rm -rf ./build || true
 
 prepare-commit-msg:
 	[ -d ./.git/hooks ] && echo "./.git/hooks exists" || mkdir -p .git/hooks
-	[ -f .git/hooks/prepare-commit-msg ] && echo "Skip .hooks/prepare-commit-msg" || cp docker/dev/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg
+	[ -f .git/hooks/prepare-commit-msg ] && echo "Skip .hooks/prepare-commit-msg" || cp docker/configs/dev/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg

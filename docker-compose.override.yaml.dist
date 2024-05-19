@@ -5,7 +5,7 @@ services:
     container_name: ${DOCKER_PROJECT_TITLE}-nginx
     restart: always
     build:
-      context: ./docker/dev
+      context: ./docker/configs/dev
       dockerfile: nginx.docker
     volumes:
       - ./app:/app
@@ -19,7 +19,7 @@ services:
     container_name: ${DOCKER_PROJECT_TITLE}-php-fpm
     restart: always
     build:
-      context: ./docker/dev
+      context: ./docker/configs/dev
       dockerfile: php-fpm.docker
     volumes:
       - ./app:/app
@@ -35,12 +35,12 @@ services:
     container_name: ${DOCKER_PROJECT_TITLE}-php-cli
     restart: always
     build:
-      context: ./docker/dev
+      context: ./docker/configs/dev
       dockerfile: php-cli.docker
     volumes:
       - ./app:/app
       - composer:/root/.composer/cache
-      - ./app/var/data/.composer/auth.json:/root/.composer/auth.json
+      - ./docker/data/.composer/auth.json:/root/.composer/auth.json
     depends_on:
       - postgres
     tty: true
@@ -52,7 +52,7 @@ services:
   postgres:
     container_name: ${DOCKER_PROJECT_TITLE}-postgres
     restart: always
-    image: postgres:14.2-alpine
+    image: postgres:16.3-alpine
     volumes:
       - postgres:/var/lib/postgresql/data
     environment:
