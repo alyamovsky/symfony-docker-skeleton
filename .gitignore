@@ -3,7 +3,7 @@
 ###< IDE ###
 
 ###> Docker ###
-docker-compose.override.yaml
+compose.override.yaml
 /.env
 /docker/data/*
 !/docker/data/.gitkeep

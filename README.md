@@ -5,7 +5,7 @@
 A project template in the following configuration:
 1. Latest stable Symfony framework (6.4 at the moment)
 2. PHP 8.3
-3. PostgreSQL 16.3 (can be altered in the docker-compose file) ?
+3. PostgreSQL 16.3 (can be altered in the docker compose file) ?
 4. Separate Docker containers for Nginx, FPM, CLI and a database
 5. CS-Fixer and Psalm on board
 
@@ -14,8 +14,7 @@ A project template in the following configuration:
 1. The application and docker files are located on the same level: in the `/app` and `/docker` folders, respectively. 
    This allows you to separate the symphony-application and docker environment variables, and to implement the mono 
    repository pattern by adding new folders if necessary: `/centrifugo`, `s3-storage`, etc.
-2. The `docker-compose.override.yaml` is ignored by default, so you can add your own settings without worrying about 
-   overwriting the original ones.
+2. The `compose.override.yaml` is ignored by default, so you can add your own settings without worrying about overwriting the original ones.
 
 # Quick Start
 One-liner to create a new project: `composer create-project ddlzz/symfony-docker-website-skeleton local_project_path && make setup-configs && make init OPTIONS="webapp" && make up`
@@ -45,4 +44,3 @@ To integrate Xdebug with PhpStorm within a created project you need to do the fo
 2. `make test` - PHPUnit tests
 3. `make cs` - PHP CS-fixer with predefined [rule sets](https://github.com/alyamovsky/symfony-docker-website-skeleton/blob/main/app/.php_cs.dist) 
 4. `make psalm` - Psalm (default level is 1)
-
