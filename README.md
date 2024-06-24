@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/alyamovsky/symfony-docker-skeleton/version.svg)](https://packagist.org/packages/alyamovsky/symfony-docker-skeleton)
 
 A project template in the following configuration:
-1. Latest stable Symfony framework (6.4 at the moment)
+1. Latest stable Symfony framework (6.4 at the moment), with the ability to specify the version
 2. PHP 8.3
 3. PostgreSQL 16.3 (can be altered in the docker compose file) ?
 4. Separate Docker containers for Nginx, FPM, CLI and a database
