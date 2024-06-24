@@ -29,6 +29,19 @@ Default ports are random (47001-47999) for every created project, so click the l
 
 You also can set desired ports for Nginx and PostgreSQL manually in generated /.env file (don't forget to run `make restart` afterwards).
 
+# Flags
+When running make init, you can use these flags:
+
+* `OPTIONS="webapp"`: Includes [web application](https://symfony.com/doc/current/setup.html#creating-symfony-applications) features. Omit for the basic `symfony/skeleton` setup.
+* `VERSION=X.Y`: Specifies Symfony version. Defaults to the latest stable version, which is 6.4 at the moment.
+
+Examples:
+```
+make init OPTIONS="webapp"
+make init VERSION=7.2
+make init OPTIONS="webapp" VERSION=7.2
+```
+
 ## Configuring Xdebug settings for PhpStorm IDE
 
 To integrate Xdebug with PhpStorm within a created project you need to do the following:

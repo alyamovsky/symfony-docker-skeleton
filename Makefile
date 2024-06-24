@@ -35,7 +35,7 @@ test:
 	docker compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli php /app/bin/phpunit
 
 app-install:
-	./build/scripts/install-app.sh $(OPTIONS) || true # install the Symfony app itself
+	VERSION=$(VERSION) ./build/scripts/install-app.sh $(OPTIONS) || true # install the Symfony app itself
 
 console:
 	docker compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli zsh
