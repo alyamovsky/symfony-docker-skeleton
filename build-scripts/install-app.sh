@@ -1,8 +1,13 @@
 #!/bin/bash
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    COMPOSER_CMD_PREFIX="docker run --rm -u $(id -u):$(id -g) -v $(pwd):/app composer:lts"
+else
+    # Linux
+    COMPOSER_CMD_PREFIX="sudo docker run --rm -u $(id -u):$(id -g) -v $(pwd):/app composer:lts"
+fi
 
-
-COMPOSER_CMD_PREFIX="docker run --rm -u $(id -u):$(id -g) -v $(pwd):/app composer:lts"
 COMPOSER_CMD=$COMPOSER_CMD_PREFIX+" composer:lts"
 
 APP_DIR="app_new"
@@ -24,4 +29,4 @@ cp -R ../assets/tests/* $APP_DIR/tests/
 
 cp ../phpunit.xml.dist $APP_DIR/
 
-echo "Installation and setup completed."
+echo "Symfony setup is completed."

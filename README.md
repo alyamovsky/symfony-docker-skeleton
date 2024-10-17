@@ -19,7 +19,7 @@ A project template in the following configuration:
 
 # Quick Start
 
-1. `composer create-project ddlzz/symfony-docker-website-skeleton local_project_path`
+1. `sudo docker run --rm -v $(pwd):/app composer:lts create-project alyamovsky/symfony-docker-skeleton local_project_path` (you can also use the `composer` command from the host machine)
 2. `make configs-setup` - create .env files for docker containers
 3. `make init` - very important! Run it before making any commits to your repo. 
 4. `make up` - start docker containers 
