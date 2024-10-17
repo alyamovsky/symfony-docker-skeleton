@@ -17,10 +17,10 @@ A project template in the following configuration:
 2. The `compose.override.yaml` is ignored by default, so you can add your own settings without worrying about overwriting the original ones.
 
 # Quick Start
-One-liner to create a new project: `composer create-project ddlzz/symfony-docker-website-skeleton local_project_path && make setup-configs && make init OPTIONS="webapp" && make up`
+One-liner to create a new project: `composer create-project alyamovsky/symfony-docker-skeleton local_project_path && make setup-configs && make init OPTIONS="webapp" && make up`
 
 Split into steps:
-1. `composer create-project ddlzz/symfony-docker-website-skeleton local_project_path`
+1. `sudo docker run --rm -v $(pwd):/app composer:lts create-project alyamovsky/symfony-docker-skeleton local_project_path` (you can also use the `composer` command from the host machine)
 2. `make setup-configs` - create .env files for docker containers
 3. `make init OPTIONS="webapp"` - very important! Run it before making any commits to your repo. You can omit the `OPTIONS` parameter if you don't need to use the webapp.
 4. `make up` - start docker containers 

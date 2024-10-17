@@ -26,4 +26,4 @@ rm -rf $APP_TMP_DIR
 cp -R ./build/assets/* ./app
 cp -R ./build/assets/.env.local ./app
 
-echo "The app installation and setup completed."
+echo "The app installation and setup are completed."
