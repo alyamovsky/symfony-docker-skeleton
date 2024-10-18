@@ -7,6 +7,7 @@ use PhpCsFixer\Finder;
 
 $finder = (new Finder())
     ->in(__DIR__.'/src')
+    ->in(__DIR__.'/migrations')
     ->in(__DIR__.'/tests')
     ->exclude('var')
 ;

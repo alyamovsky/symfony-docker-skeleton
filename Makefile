@@ -41,7 +41,7 @@ console:
 	docker compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli zsh
 
 cs:
-	docker compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/vendor/bin/php-cs-fixer -v --allow-risky=yes --config=/app/.php_cs.dist fix /app/src/* /app/tests/*"
+	docker compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/vendor/bin/php-cs-fixer -v --allow-risky=yes fix"
 
 psalm:
 	docker compose -p $(DOCKER_PROJECT_TITLE) run --rm php-cli sh -c "php /app/vendor/bin/psalm /app/src/*"
